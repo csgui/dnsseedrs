@@ -145,6 +145,11 @@ impl SeederInfo {
                 "x40c".to_string(),
                 ServiceFlags::NETWORK_LIMITED | ServiceFlags::WITNESS | ServiceFlags::BLOOM,
             ),
+            // NODE_UTREEXO (bit 12, BIP-183): peer serves utreexo inclusion proofs
+            // for new blocks. Any utreexo-capable node sets this bit — archive nodes
+            // (which also set NODE_UTREEXO_ARCHIVE, bit 13) and bridge nodes alike.
+            // So "x1000" matches all of them.
+            ("x1000".to_string(), ServiceFlags::from(1 << 12)),
         ]);
 
         // Get vector of served domain names in canonical ordering
@@ -377,7 +382,7 @@ async fn process_dns_request(
                 }
                 continue;
             }
-            let filter_label = name.first().to_string();
+            let filter_label = name.first().to_string().to_lowercase();
             let this_filter = seeder.allowed_filters.get(&filter_label);
             if this_filter.is_none() {
                 if let Ok(msg) =
