@@ -150,6 +150,10 @@ impl SeederInfo {
             // (which also set NODE_UTREEXO_ARCHIVE, bit 13) and bridge nodes alike.
             // So "x1000" matches all of them.
             ("x1000".to_string(), ServiceFlags::from(1 << 12)),
+            (
+                "x1009".to_string(),
+                ServiceFlags::NETWORK | ServiceFlags::WITNESS | ServiceFlags::from(1 << 12),
+            ),
         ]);
 
         // Get vector of served domain names in canonical ordering
