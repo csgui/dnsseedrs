@@ -151,6 +151,10 @@ impl SeederInfo {
             // So "x1000" matches all of them.
             ("x1000".to_string(), ServiceFlags::from(1 << 12)),
             (
+                "x1001".to_string(),
+                ServiceFlags::NETWORK | ServiceFlags::from(1 << 12),
+            ),
+            (
                 "x1009".to_string(),
                 ServiceFlags::NETWORK | ServiceFlags::WITNESS | ServiceFlags::from(1 << 12),
             ),
